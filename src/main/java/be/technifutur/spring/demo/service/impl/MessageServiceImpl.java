@@ -9,6 +9,9 @@ import java.util.List;
 @Service
 public class MessageServiceImpl implements MessageService {
 
+
+    // ATTENTION la liste "messages" met à mal le concept de STATELESSNESS
+    // => Inacceptable dans une vrai API RESTFULL
     private final List<String> messages = new ArrayList<>();
 
     @Override

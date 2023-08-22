@@ -4,3 +4,6 @@ spring:
     username: postgres
     password: pass
     driver-class-name: org.postgresql.Driver
+springdoc:
+  swagger-ui:
+    path: /swagger
