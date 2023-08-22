@@ -1,16 +1,23 @@
 package be.technifutur.spring.demo.controller;
 
+import be.technifutur.spring.demo.exceptions.ResourceNotFoundException;
+import be.technifutur.spring.demo.models.dto.ErrorDTO;
 import be.technifutur.spring.demo.models.dto.GameDTO;
 import be.technifutur.spring.demo.models.entity.Game;
 import be.technifutur.spring.demo.models.form.GameForm;
 import be.technifutur.spring.demo.models.form.GamePlatformsForm;
 import be.technifutur.spring.demo.models.form.GamePriceForm;
 import be.technifutur.spring.demo.service.GameService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/game")

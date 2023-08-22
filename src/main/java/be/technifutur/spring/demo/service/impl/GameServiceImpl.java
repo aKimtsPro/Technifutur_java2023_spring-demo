@@ -1,5 +1,7 @@
 package be.technifutur.spring.demo.service.impl;
 
+import be.technifutur.spring.demo.exceptions.ResourceNotFound2Exception;
+import be.technifutur.spring.demo.exceptions.ResourceNotFoundException;
 import be.technifutur.spring.demo.models.entity.Game;
 import be.technifutur.spring.demo.models.entity.Genre;
 import be.technifutur.spring.demo.models.entity.Platform;
@@ -44,7 +46,7 @@ public class GameServiceImpl implements GameService {
         return games.stream()
                 .filter( game -> game.getId() == id )
                 .findAny()
-                .orElseThrow( () -> new IllegalArgumentException("Id doesnt exist in the list") );
+                .orElseThrow( () -> new ResourceNotFound2Exception(id, Game.class));
     }
 
     @Override
@@ -92,6 +94,7 @@ public class GameServiceImpl implements GameService {
             throw new IllegalArgumentException("platform should not be null");
 
         Game game = getGame(id);
+
         game.getPlatforms().addAll(
                 platforms.stream()
                         .distinct()

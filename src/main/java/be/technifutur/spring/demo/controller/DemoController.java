@@ -1,5 +1,6 @@
 package be.technifutur.spring.demo.controller;
 
+import be.technifutur.spring.demo.exceptions.ResourceNotFoundException;
 import be.technifutur.spring.demo.service.MessageService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpHeaders;
@@ -86,5 +87,15 @@ public class DemoController {
         System.out.println(testHeader);
     }
 
+
+    @GetMapping("/break")
+    public void breakThis(){
+        throw new ResourceNotFoundException(0L, Object.class);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> handle(){
+        return ResponseEntity.badRequest().body("fait mieux");
+    }
 
 }
