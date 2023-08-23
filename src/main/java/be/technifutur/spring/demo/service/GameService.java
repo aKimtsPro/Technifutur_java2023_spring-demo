@@ -4,6 +4,7 @@ import be.technifutur.spring.demo.models.entity.Game;
 import be.technifutur.spring.demo.models.entity.Platform;
 
 import java.util.List;
+import java.util.Set;
 
 public interface GameService {
 
@@ -13,6 +14,6 @@ public interface GameService {
     List<Game> getAllGames(Double minPrice, Double maxPrice);
     Game updateGame(long id, Game game);
     Game updatePrice(long id, double price);
-    Game addPlatform(long id, List<Platform> platforms);
+    Game addPlatform(long id, Set<Platform> platforms);
 
 }

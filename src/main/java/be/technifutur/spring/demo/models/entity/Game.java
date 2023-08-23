@@ -8,7 +8,9 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter @Setter
@@ -29,7 +31,7 @@ public class Game {
             name = "game_genre",
             joinColumns = @JoinColumn(name = "game_id")
     )
-    private List<Genre> genres;
+    private Set<Genre> genres = new HashSet<>();
 
     @Column(name = "game_release")
     private LocalDate releaseDate;
@@ -43,10 +45,12 @@ public class Game {
             name = "game_platform",
             joinColumns = @JoinColumn(name = "game_id")
     )
-    private List<Platform> platforms;
+    private Set<Platform> platforms = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "game_studio_id", nullable = false)
     private Studio studio;
 
+    @OneToMany(mappedBy = "gamePlayed")
+    private Set<Competition> competitions = new HashSet<>();
 }

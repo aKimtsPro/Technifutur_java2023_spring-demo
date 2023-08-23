@@ -28,9 +28,9 @@ public class GameDTO {
         return GameDTO.builder()
                 .id( entity.getId() )
                 .name( entity.getName() )
-                .genres( entity.getGenres() )
+//                .genres( entity.getGenres() )
                 .releaseDate( entity.getReleaseDate() )
-                .platforms( entity.getPlatforms() )
+//                .platforms( entity.getPlatforms() )
                 .price( entity.getPrice() )
                 .studioName( entity.getStudio().getName() )
                 .build();

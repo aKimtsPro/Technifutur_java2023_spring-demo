@@ -1,4 +1,4 @@
-package be.technifutur.spring.demo.service.impl;
+package be.technifutur.spring.demo.service.mock;
 
 import be.technifutur.spring.demo.exceptions.ResourceNotFound2Exception;
 import be.technifutur.spring.demo.models.entity.Game;
@@ -8,8 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-@Service
+//@Service
 public class GameServiceMock implements GameService {
 
     private static long nextId = 1;
@@ -81,7 +82,7 @@ public class GameServiceMock implements GameService {
     }
 
     @Override
-    public Game addPlatform(long id, List<Platform> platforms) {
+    public Game addPlatform(long id, Set<Platform> platforms) {
         if( platforms == null )
             throw new IllegalArgumentException("platform should not be null");
 

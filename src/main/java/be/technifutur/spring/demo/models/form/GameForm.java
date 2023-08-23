@@ -21,11 +21,11 @@ public class GameForm {
     public Game toEntity(){
         Game game = new Game();
         game.setName( this.name );
-        game.setGenres( this.genres );
+//        game.setGenres( this.genres );
         game.setReleaseDate( this.releaseDate );
 //        game.setStudioName( this.studioName );
         game.setPrice( this.price );
-        game.setPlatforms( this.platforms );
+//        game.setPlatforms( this.platforms );
         return game;
     }
 
