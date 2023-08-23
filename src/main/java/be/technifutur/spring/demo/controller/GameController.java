@@ -1,32 +1,30 @@
 package be.technifutur.spring.demo.controller;
 
-import be.technifutur.spring.demo.exceptions.ResourceNotFoundException;
-import be.technifutur.spring.demo.models.dto.ErrorDTO;
 import be.technifutur.spring.demo.models.dto.GameDTO;
 import be.technifutur.spring.demo.models.entity.Game;
+import be.technifutur.spring.demo.models.entity.Studio;
 import be.technifutur.spring.demo.models.form.GameForm;
 import be.technifutur.spring.demo.models.form.GamePlatformsForm;
 import be.technifutur.spring.demo.models.form.GamePriceForm;
 import be.technifutur.spring.demo.service.GameService;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.http.HttpMethod;
+import be.technifutur.spring.demo.service.StudioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/game")
 public class GameController {
 
     private final GameService gameService;
+    private final StudioService studioService;
 
-    public GameController(GameService gameService) {
+    public GameController(GameService gameService, StudioService studioService) {
         this.gameService = gameService;
+        this.studioService = studioService;
     }
 
     @GetMapping("/{id:[0-9]+}")
@@ -49,15 +47,18 @@ public class GameController {
     }
 
     @DeleteMapping("/{id:[0-9]+}")
-    public ResponseEntity<GameDTO> delete(@PathVariable long id){
-        Game game = gameService.removeGame(id);
-        GameDTO body = GameDTO.toDTO(game);
-        return ResponseEntity.ok( body );
+    public ResponseEntity<?> delete(@PathVariable long id){
+        gameService.removeGame(id);
+        return ResponseEntity.ok("deleted");
     }
 
     @PostMapping
     public ResponseEntity<Long> create(@RequestBody GameForm form){
-        long body = gameService.addGame( form.toEntity() );
+        Game entity = form.toEntity();
+        Studio studio = studioService.getOne( form.getStudioId() );
+        entity.setStudio( studio );
+
+        long body = gameService.addGame( entity );
         return ResponseEntity
                 .status( HttpStatus.CREATED )
                 .body( body );
@@ -65,7 +66,11 @@ public class GameController {
 
     @PutMapping("/{id:[0-9]+}")
     public ResponseEntity<GameDTO> update(@PathVariable long id, @RequestBody GameForm form){
-        Game game = gameService.updateGame( id, form.toEntity() );
+        Game entity = form.toEntity();
+        Studio studio = studioService.getOne( form.getStudioId() );
+        entity.setStudio( studio );
+
+        Game game = gameService.updateGame( id, entity );
         GameDTO body = GameDTO.toDTO( game );
         return ResponseEntity.ok( body );
     }
