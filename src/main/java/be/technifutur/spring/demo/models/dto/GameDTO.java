@@ -32,7 +32,7 @@ public class GameDTO {
                 .releaseDate( entity.getReleaseDate() )
                 .platforms( entity.getPlatforms() )
                 .price( entity.getPrice() )
-                .studioName( entity.getStudioName() )
+                .studioName( entity.getStudio().getName() )
                 .build();
     }
 

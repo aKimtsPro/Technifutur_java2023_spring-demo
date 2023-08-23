@@ -1,27 +1,19 @@
 package be.technifutur.spring.demo.service.impl;
 
 import be.technifutur.spring.demo.exceptions.ResourceNotFound2Exception;
-import be.technifutur.spring.demo.exceptions.ResourceNotFoundException;
 import be.technifutur.spring.demo.models.entity.Game;
-import be.technifutur.spring.demo.models.entity.Genre;
 import be.technifutur.spring.demo.models.entity.Platform;
 import be.technifutur.spring.demo.service.GameService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class GameServiceImpl implements GameService {
+public class GameServiceMock implements GameService {
 
     private static long nextId = 1;
-    private final List<Game> games = new ArrayList<>(
-            List.of(
-                    new Game(nextId++, "YannickOP", List.of(Genre.FPS), LocalDate.of(2023, 9, 29), "Studio88", 69.69, List.of(Platform.PS, Platform.PC, Platform.XBOX)),
-                    new Game(nextId++, "World of Warcraft", List.of(Genre.MMO, Genre.RPG), LocalDate.of(2003, 1,1), "Blizzard", 10000000., List.of(Platform.PC))
-            )
-    );
+    private final List<Game> games = new ArrayList<>();
 
 
     @Override
@@ -69,7 +61,7 @@ public class GameServiceImpl implements GameService {
         toUpdate.setGenres(game.getGenres());
         toUpdate.setPrice(game.getPrice());
         toUpdate.setPlatforms(game.getPlatforms());
-        toUpdate.setStudioName(game.getStudioName());
+        toUpdate.setStudio(game.getStudio());
         toUpdate.setReleaseDate(game.getReleaseDate());
 
         return toUpdate;

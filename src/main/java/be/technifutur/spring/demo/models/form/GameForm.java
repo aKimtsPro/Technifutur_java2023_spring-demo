@@ -23,7 +23,7 @@ public class GameForm {
         game.setName( this.name );
         game.setGenres( this.genres );
         game.setReleaseDate( this.releaseDate );
-        game.setStudioName( this.studioName );
+//        game.setStudioName( this.studioName );
         game.setPrice( this.price );
         game.setPlatforms( this.platforms );
         return game;

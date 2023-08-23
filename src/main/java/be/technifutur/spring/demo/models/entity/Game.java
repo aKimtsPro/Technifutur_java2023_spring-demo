@@ -34,8 +34,6 @@ public class Game {
     @Column(name = "game_release")
     private LocalDate releaseDate;
 
-    private String studioName;
-
     @Column(name = "game_price", nullable = false)
     private double price;
 
@@ -46,5 +44,9 @@ public class Game {
             joinColumns = @JoinColumn(name = "game_id")
     )
     private List<Platform> platforms;
+
+    @ManyToOne
+    @JoinColumn(name = "game_studio_id", nullable = false)
+    private Studio studio;
 
 }
