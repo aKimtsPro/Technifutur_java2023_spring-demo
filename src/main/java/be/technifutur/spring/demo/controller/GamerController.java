@@ -52,4 +52,12 @@ public class GamerController {
         return ResponseEntity.noContent()
                 .build();
     }
+
+    // PATCH - http://localhost:8080/gamer/1/add_game?gameId=1
+    @PatchMapping("/{gamerId:[0-9]+}/add_game")
+    public ResponseEntity<?> addGame(@PathVariable Long gamerId, @RequestParam Long gameId ){
+        gamerService.addGame(gamerId, gameId);
+        return ResponseEntity.noContent()
+                .build();
+    }
 }

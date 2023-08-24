@@ -1,20 +1,26 @@
 package be.technifutur.spring.demo.service.impl;
 
+import be.technifutur.spring.demo.exceptions.ResourceAlreadyLinkedException;
 import be.technifutur.spring.demo.exceptions.ResourceNotFoundException;
+import be.technifutur.spring.demo.models.entity.Game;
 import be.technifutur.spring.demo.models.entity.Gamer;
 import be.technifutur.spring.demo.repository.GamerRepository;
+import be.technifutur.spring.demo.service.GameService;
 import be.technifutur.spring.demo.service.GamerService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class GamerServiceImpl implements GamerService {
 
     private final GamerRepository gamerRepository;
+    private final GameService gameService;
 
-    public GamerServiceImpl(GamerRepository gamerRepository) {
+    public GamerServiceImpl(GamerRepository gamerRepository, GameService gameService) {
         this.gamerRepository = gamerRepository;
+        this.gameService = gameService;
     }
 
     @Override
@@ -56,6 +62,21 @@ public class GamerServiceImpl implements GamerService {
         gamerRepository.save( gamer );
     }
 
+    @Override
+    public void addGame(Long gamerId, Long gameId) {
+        Gamer gamer = getOne( gamerId );
+        Game game = gameService.getGame( gameId );
+
+        boolean gameAlreadyPresent = gamer.getGamesPlayed().stream()
+                .anyMatch( gamePlayed -> Objects.equals(gamePlayed.getId(), game.getId()) );
+
+        if( gameAlreadyPresent )
+            throw new ResourceAlreadyLinkedException(Gamer.class, gamerId, Game.class, gameId);
+
+        gamer.getGamesPlayed().add( game );
+        gamerRepository.save( gamer );
+    }
+
     private String generateRandomPwd(){
         return "change_me";
 //        final String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -66,4 +87,5 @@ public class GamerServiceImpl implements GamerService {
 //                .mapToObj(randomIndex -> String.valueOf(chars.charAt(randomIndex)))
 //                .collect(Collectors.joining());
     }
+
 }

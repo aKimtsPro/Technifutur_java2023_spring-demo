@@ -8,6 +8,7 @@ import be.technifutur.spring.demo.models.form.GamePlatformsForm;
 import be.technifutur.spring.demo.models.form.GamePriceForm;
 import be.technifutur.spring.demo.service.GameService;
 import be.technifutur.spring.demo.service.StudioService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,7 +79,7 @@ public class GameController {
     }
 
     @PatchMapping("/{id:[0-9]+}/price")
-    public ResponseEntity<GameDTO> updatePrice(@PathVariable long id, @RequestBody GamePriceForm form){
+    public ResponseEntity<GameDTO> updatePrice(@PathVariable long id, @RequestBody @Valid GamePriceForm form){
         Game game = gameService.updatePrice( id, form.getPrice() );
         GameDTO body = GameDTO.toDTO( game );
         return ResponseEntity.ok( body );
