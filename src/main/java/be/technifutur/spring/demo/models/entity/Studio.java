@@ -23,7 +23,7 @@ public class Studio {
     @Column(name = "studio_name", nullable = false)
     private String name;
 
-    @ManyToOne// (optional = false)
+    @ManyToOne(cascade = {CascadeType.PERSIST})// (optional = false)
     @JoinColumn(name = "studio_address_id", nullable = false)
     private Address address;
 

@@ -47,9 +47,11 @@ public class GameController {
     }
 
     @DeleteMapping("/{id:[0-9]+}")
-    public ResponseEntity<?> delete(@PathVariable long id){
+    public ResponseEntity<GameDTO> delete(@PathVariable long id){
+        Game game = gameService.getGame(id);
+        GameDTO body = GameDTO.toDTO(game);
         gameService.removeGame(id);
-        return ResponseEntity.ok("deleted");
+        return ResponseEntity.ok( body );
     }
 
     @PostMapping

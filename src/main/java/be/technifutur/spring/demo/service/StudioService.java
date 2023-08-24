@@ -2,8 +2,6 @@ package be.technifutur.spring.demo.service;
 
 import be.technifutur.spring.demo.models.entity.Studio;
 
-public interface StudioService {
+import java.util.List;
 
-    Studio getOne(Long id);
-
-}
+public interface StudioService extends CrudService<Studio, Long> {}
