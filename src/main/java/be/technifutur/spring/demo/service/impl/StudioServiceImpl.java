@@ -24,10 +24,17 @@ public class StudioServiceImpl implements StudioService {
         this.addressRepository = addressRepository;
     }
 
+    /**
+     * adds a Studio to the data base
+     * <br/>
+     * ex: <code>service.add(studio)</code>
+     *
+     * @param studio a studio to add to the database
+     * @return this id of the studio
+     * @author A.Kimtsaris
+     */
     @Override
     public Long add(Studio studio) {
-//        Address address = studio.getAddress();
-//        studio.setAddress( addressRepository.save(address) );
         return studioRepository.save( studio ).getId();
     }
 

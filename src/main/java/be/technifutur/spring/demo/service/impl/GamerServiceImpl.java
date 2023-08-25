@@ -26,7 +26,6 @@ public class GamerServiceImpl implements GamerService {
     @Override
     public Long add(Gamer gamer) {
         gamer.setId(null);
-        gamer.setPassword( generateRandomPwd() );
         return gamerRepository.save( gamer ).getId();
     }
 
@@ -50,6 +49,7 @@ public class GamerServiceImpl implements GamerService {
 
         entity.setPseudo( gamer.getPseudo() );
         entity.setEmail( gamer.getEmail() );
+        entity.setPassword( gamer.getPassword() );
         entity.setBirthdate( gamer.getBirthdate() );
 
         gamerRepository.save( entity );

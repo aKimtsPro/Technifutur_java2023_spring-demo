@@ -1,14 +1,20 @@
 package be.technifutur.spring.demo.models.form;
 
 import be.technifutur.spring.demo.models.entity.Address;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
 public class AddressForm {
+    @NotBlank
     private String street;
+    @NotBlank
     private String number;
+    @NotBlank
     private String city;
+    @NotBlank
     private String zipcode;
+    @NotBlank
     private String country;
 
     public Address toEntity(){

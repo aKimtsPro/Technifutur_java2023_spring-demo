@@ -1,12 +1,17 @@
 package be.technifutur.spring.demo.models.form;
 
 import be.technifutur.spring.demo.models.entity.Studio;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import org.springframework.validation.annotation.Validated;
 
 @Data
 public class StudioForm {
 
+    @NotBlank
     private String name;
+    @Valid
     private AddressForm address;
 
     public Studio toEntity(){

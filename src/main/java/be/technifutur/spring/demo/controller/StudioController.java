@@ -3,6 +3,7 @@ package be.technifutur.spring.demo.controller;
 import be.technifutur.spring.demo.models.dto.StudioDTO;
 import be.technifutur.spring.demo.models.form.StudioForm;
 import be.technifutur.spring.demo.service.StudioService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class StudioController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> add(@RequestBody StudioForm form){
+    public ResponseEntity<Long> add(@RequestBody @Valid StudioForm form){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body( studioService.add( form.toEntity() ) );
     }
@@ -40,8 +41,8 @@ public class StudioController {
     }
 
 
-    @PutMapping("/{id:[0-9]+}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody StudioForm form){
+    @PutMapping("/{id:^[0-9]+$}")
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid StudioForm form){
         studioService.update(id, form.toEntity());
         return ResponseEntity.noContent()
                 .build();

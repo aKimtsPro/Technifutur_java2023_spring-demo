@@ -12,12 +12,14 @@ public class GamerForm {
 
     private String pseudo;
     private String email;
+    private String password;
     private LocalDate birthdate;
 
     public Gamer toEntity(){
         Gamer gamer = new Gamer();
         gamer.setPseudo( pseudo );
         gamer.setEmail( email );
+        gamer.setPassword( password );
         gamer.setBirthdate( birthdate );
         return gamer;
     }
