@@ -11,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 public class StudioForm {
 
     @NotBlank
-    @IsOk
     private String name;
     @Valid
     private AddressForm address;

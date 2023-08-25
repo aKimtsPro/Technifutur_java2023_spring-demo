@@ -56,7 +56,7 @@ public class GameController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> create(@RequestBody GameForm form){
+    public ResponseEntity<Long> create(@RequestBody @Valid GameForm form){
         Game entity = form.toEntity();
         Studio studio = studioService.getOne( form.getStudioId() );
         entity.setStudio( studio );
@@ -68,7 +68,7 @@ public class GameController {
     }
 
     @PutMapping("/{id:[0-9]+}")
-    public ResponseEntity<GameDTO> update(@PathVariable long id, @RequestBody GameForm form){
+    public ResponseEntity<GameDTO> update(@PathVariable long id, @RequestBody @Valid GameForm form){
         Game entity = form.toEntity();
         Studio studio = studioService.getOne( form.getStudioId() );
         entity.setStudio( studio );
