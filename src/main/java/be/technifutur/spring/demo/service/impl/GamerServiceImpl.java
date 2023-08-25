@@ -34,9 +34,6 @@ public class GamerServiceImpl implements GamerService {
         if( gamerRepository.existsByPseudo( gamer.getPseudo() ) )
             fieldUniqueErrors.add("pseudo");
 
-        if( gamerRepository.existsByEmail( gamer.getEmail() ) )
-            fieldUniqueErrors.add("email");
-
         if( !fieldUniqueErrors.isEmpty() )
             throw new UniqueViolationException(fieldUniqueErrors);
 
@@ -89,6 +86,16 @@ public class GamerServiceImpl implements GamerService {
 
         gamer.getGamesPlayed().add( game );
         gamerRepository.save( gamer );
+    }
+
+    @Override
+    public boolean isEmailTaken(String email) {
+        return gamerRepository.existsByEmail(email);
+    }
+
+    @Override
+    public boolean isPseudoTaken(String pseudo) {
+        return gamerRepository.existsByPseudo(pseudo);
     }
 
     private String generateRandomPwd(){

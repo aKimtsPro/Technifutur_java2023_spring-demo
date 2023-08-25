@@ -8,4 +8,7 @@ public interface GamerService extends CrudService<Gamer, Long> {
 
     void addGame( Long gamerId, Long gameId );
 
+    boolean isEmailTaken(String email);
+    boolean isPseudoTaken(String pseudo);
+
 }

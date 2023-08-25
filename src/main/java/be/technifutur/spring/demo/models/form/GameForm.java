@@ -13,10 +13,12 @@ import java.util.Set;
 public class GameForm {
 
     private String name;
+//    @Exclude( values = { FPS, RTS } )
     private Set<Genre> genres;
     private LocalDate releaseDate;
     private Long studioId;
     private double price;
+//    @Exclude( values = {SWITCH} )
     private Set<Platform> platforms;
 
 

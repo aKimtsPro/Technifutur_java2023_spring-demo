@@ -98,11 +98,24 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
         Set<Map<String, Object>> errors = new LinkedHashSet<>();
 
-        ex.getAllErrors().forEach( error -> {
-            Map<String, Object> errorData = new HashMap<>();
-            errorData.put("message", error.getDefaultMessage());
-            errors.add( errorData );
-        });
+        ex.getGlobalErrors().forEach(
+                error -> {
+                    Map<String, Object> errorData = new HashMap<>();
+                    errorData.put("message", error.getDefaultMessage());
+                    errorData.put("type", "global");
+                    errors.add( errorData );
+                }
+        );
+
+        ex.getFieldErrors().forEach(
+                error -> {
+                    Map<String, Object> errorData = new HashMap<>();
+                    errorData.put("message", error.getDefaultMessage());
+                    errorData.put("type", "field");
+                    errorData.put("fieldName", error.getField());
+                    errors.add( errorData );
+                }
+        );
 
         return ResponseEntity.badRequest()
                 .body(

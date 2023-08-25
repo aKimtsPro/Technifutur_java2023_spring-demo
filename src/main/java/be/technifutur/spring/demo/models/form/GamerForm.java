@@ -1,6 +1,8 @@
 package be.technifutur.spring.demo.models.form;
 
 import be.technifutur.spring.demo.models.entity.Gamer;
+import be.technifutur.spring.demo.validation.contraints.EmailStartWithPseudo;
+import be.technifutur.spring.demo.validation.contraints.EmailUnique;
 import be.technifutur.spring.demo.validation.contraints.TimesAgo;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -8,6 +10,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
+@EmailStartWithPseudo
 public class GamerForm {
 
     @NotBlank
@@ -15,6 +18,7 @@ public class GamerForm {
     private String pseudo;
     @NotBlank
     @Email
+    @EmailUnique
     private String email;
     @NotBlank
     @Size(min = 6)
