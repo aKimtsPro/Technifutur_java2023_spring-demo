@@ -2,13 +2,16 @@ package be.technifutur.spring.demo.service.impl;
 
 import be.technifutur.spring.demo.exceptions.ResourceAlreadyLinkedException;
 import be.technifutur.spring.demo.exceptions.ResourceNotFoundException;
+import be.technifutur.spring.demo.exceptions.UniqueViolationException;
 import be.technifutur.spring.demo.models.entity.Game;
 import be.technifutur.spring.demo.models.entity.Gamer;
 import be.technifutur.spring.demo.repository.GamerRepository;
 import be.technifutur.spring.demo.service.GameService;
 import be.technifutur.spring.demo.service.GamerService;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,6 +29,17 @@ public class GamerServiceImpl implements GamerService {
     @Override
     public Long add(Gamer gamer) {
         gamer.setId(null);
+
+        List<String> fieldUniqueErrors = new LinkedList<>();
+        if( gamerRepository.existsByPseudo( gamer.getPseudo() ) )
+            fieldUniqueErrors.add("pseudo");
+
+        if( gamerRepository.existsByEmail( gamer.getEmail() ) )
+            fieldUniqueErrors.add("email");
+
+        if( !fieldUniqueErrors.isEmpty() )
+            throw new UniqueViolationException(fieldUniqueErrors);
+
         return gamerRepository.save( gamer ).getId();
     }
 

@@ -4,6 +4,7 @@ import be.technifutur.spring.demo.models.dto.GamerDTO;
 import be.technifutur.spring.demo.models.entity.Gamer;
 import be.technifutur.spring.demo.models.form.GamerForm;
 import be.technifutur.spring.demo.service.GamerService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class GamerController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> addGamer(@RequestBody GamerForm form){
+    public ResponseEntity<Long> addGamer(@RequestBody @Valid GamerForm form){
         return ResponseEntity.status( HttpStatus.CREATED )
                 .body( gamerService.add(form.toEntity()) );
     }
@@ -40,7 +41,7 @@ public class GamerController {
     }
 
     @PutMapping("/{id:[0-9]+}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody GamerForm form){
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid GamerForm form){
         gamerService.update( id, form.toEntity() );
         return ResponseEntity.noContent()
                 .build();

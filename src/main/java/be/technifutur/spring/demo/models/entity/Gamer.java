@@ -22,10 +22,10 @@ public class Gamer {
     @Column(name = "gamer_id", nullable = false)
     private Long id;
 
-    @Column(name = "gamer_pseudo", nullable = false)
+    @Column(name = "gamer_pseudo", nullable = false, unique = true)
     private String pseudo;
 
-    @Column(name = "gamer_email", nullable = false)
+    @Column(name = "gamer_email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "gamer_password", nullable = false)

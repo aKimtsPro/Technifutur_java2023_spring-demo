@@ -2,6 +2,7 @@ package be.technifutur.spring.demo.controller;
 
 import be.technifutur.spring.demo.exceptions.ResourceAlreadyLinkedException;
 import be.technifutur.spring.demo.exceptions.ResourceNotFoundException;
+import be.technifutur.spring.demo.exceptions.UniqueViolationException;
 import be.technifutur.spring.demo.models.dto.ErrorDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.*;
@@ -61,6 +62,31 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .body(body);
+    }
+
+    @ExceptionHandler(UniqueViolationException.class)
+    public ResponseEntity<ErrorDTO> handle(UniqueViolationException ex, HttpServletRequest req){
+        String uri = req.getRequestURI();
+        String method = req.getMethod();
+
+        Set<Map<String, Object>> errors = new LinkedHashSet<>();
+        ex.getFieldNames().forEach(
+                field -> {
+                    Map<String, Object> errorData = new HashMap<>();
+                    errorData.put(field, "should be unique");
+                    errors.add(errorData);
+                }
+        );
+
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(
+                        ErrorDTO.builder()
+                                .uri( uri )
+                                .method( method )
+                                .errors( errors )
+                                .build()
+                );
+
     }
 
     @Override
