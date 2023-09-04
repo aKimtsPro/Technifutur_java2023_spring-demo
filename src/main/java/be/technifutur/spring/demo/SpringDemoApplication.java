@@ -15,4 +15,5 @@ public class SpringDemoApplication {
 //		Scanner scanner = ctxt.getBean(Scanner.class);
 	}
 
+
 }
