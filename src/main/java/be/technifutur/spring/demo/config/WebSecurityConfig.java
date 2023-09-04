@@ -20,14 +20,14 @@ public class WebSecurityConfig {
         // /*  : 0 à 1 segment uri
         // ?   : n'importe quel caractère
 
-        http.authorizeHttpRequests( registry -> {
-            registry.requestMatchers(HttpMethod.HEAD).hasRole("ADMIN")
+        http.authorizeHttpRequests(
+                registry -> registry.requestMatchers(HttpMethod.HEAD).hasRole("ADMIN")
                     .requestMatchers("/test/**").anonymous()
                     // OK: /studio, /studio/1,
                     // PAS OK: /studio/1/delete
                     .requestMatchers(HttpMethod.POST, "/studi?/*").hasAuthority("ROLE_USER")
-                    .requestMatchers( request -> request.getParameterMap().size() > 5 ).authenticated();
-        } );
+                    .requestMatchers( request -> request.getParameterMap().size() > 5 ).authenticated()
+        );
 
 
 
